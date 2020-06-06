@@ -31,6 +31,9 @@ module.exports = {
   ],
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
+    alias: {
+      'web': path.resolve(process.cwd(), './src/web/'),
+    }
   },
   optimization: {
     minimizer: [
