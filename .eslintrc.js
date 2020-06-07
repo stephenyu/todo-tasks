@@ -33,6 +33,7 @@ module.exports = {
       "@typescript-eslint/no-unused-vars": ["off"],
         "react/display-name": "off",
         "@typescript-eslint/indent": ["error", 2],
-        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }]
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+        "@typescript-eslint/semi": ["error"],
     }
 };
