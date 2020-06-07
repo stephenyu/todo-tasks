@@ -1,8 +1,20 @@
 import * as React from 'react';
 import * as Recoil from 'recoil';
+import styled from 'styled-components';
 
 import { TaskType, Task } from 'web/types/task';
 import { TodayTaskList, TomorrowTaskList, SometimeTaskList } from 'web/atoms/TaskList.atom';
+import { SelectedTaskType } from 'web/atoms/Selected_TaskType.atom';
+
+const StyledInput = styled.input`
+border: 1px solid #E4E4E4;
+-webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+width: 500px;
+
+padding: 4px 6px 3px;
+`;
 
 const initialisedTask = { description: '', type: TaskType.today };
 
@@ -15,17 +27,9 @@ function createTask(task: Partial<Task>): Task {
   };
 }
 
-export const SelectTaskType = ({ onSelected, selected }: {onSelected: (type: TaskType) => void, selected: TaskType}) => {
-  const onChange = (event: React.ChangeEvent<HTMLSelectElement>) => onSelected(event.target.value as TaskType);
-
-  const options = [TaskType.today, TaskType.tomorrow, TaskType.sometime]
-    .map((taskType, index) => <option key={index} value={taskType}>{taskType}</option>);
-
-  return <select onChange={onChange} value={selected}>{options}</select>;
-};
-
 export const TaskInput = () => {
   const [task, setTask] = React.useState<Partial<Task>>(initialisedTask);
+  const selectedTaskType = Recoil.useRecoilValue(SelectedTaskType);
 
   const taskLists = {
     [TaskType.today]: Recoil.useSetRecoilState(TodayTaskList),
@@ -35,19 +39,16 @@ export const TaskInput = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setTask({ ...task, description: event.target.value });
 
-  const onTaskTypeSelected = (type: TaskType) => setTask({ ...task, type });
-
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
-      const constructedTask = createTask(task);
+      const constructedTask = createTask({ ...task, type: selectedTaskType });
       taskLists[constructedTask.type](prevTasks => ({ ...prevTasks, [constructedTask.date] : constructedTask }));
       setTask(initialisedTask);
     }
   };
 
   return <div>
-    <input type="text" value={task.description} onChange={onChange} onKeyDown={onKeyDown}/>
-    <SelectTaskType selected={task.type} onSelected={onTaskTypeSelected}/>
+    <StyledInput type="text" value={task.description} onChange={onChange} onKeyDown={onKeyDown} />
   </div>;
 };
 
