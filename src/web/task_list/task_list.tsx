@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 import { SelectedTaskType } from 'web/atoms/Selected_TaskType.atom';
 import { SelectedTask } from 'web/atoms/selected_task.atom';
-import { TaskList as TaskListType } from 'web/atoms/TaskList.atom';
+import { Tasklist as TasklistType, TodayTasklist } from 'web/atoms/Tasklist.atom';
 import { TaskType, Task } from 'web/types/task';
 
-interface TaskListProps {
+interface TasklistProps {
   title: TaskType;
-  state: Recoil.RecoilState<TaskListType>;
+  state: Recoil.RecoilState<TasklistType>;
 }
 
 const StyledLi = styled.li<{completed: boolean}>`
@@ -39,7 +39,7 @@ const StyledUl = styled.ul`
    padding: 0;
 `;
 
-const TaskListItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: () => void}) => {
+const TasklistItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: () => void}) => {
   const setTask = Recoil.useSetRecoilState(SelectedTask);
 
   const onMouseOver = () => setTask(task);
@@ -48,20 +48,21 @@ const TaskListItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: (
   return <StyledLi completed={task.done} onClick={onTaskItemClick} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{task.description}</StyledLi>;
 };
 
-const BaseTaskList = ({ state }:  {state: Recoil.RecoilState<TaskListType>}) => {
-  const [list, setList] = Recoil.useRecoilState(state);
+const BaseTasklist = ({ state }:  {state: Recoil.RecoilState<TasklistType>}) => {
+  const [list, setlist] = Recoil.useRecoilState(state);
 
   const onClick = (task: Task) =>
-    () => setList(prevList => ({ ...prevList, [task.date]: { ...task, done: !task.done } }));
+    () => setlist(prevlist => ({ ...prevlist, [task.id]: { ...task, done: !task.done } }));
 
   const options = Object.values(list).map((task, index) =>
-    <TaskListItem key={index} task={task} onTaskItemClick={onClick(task)}/>);
+    <TasklistItem key={index} task={task} onTaskItemClick={onClick(task)}/>);
 
   return <StyledUl>{options}</StyledUl>;
 };
 
-const StyledTaskList = styled.div`
+const StyledTasklist = styled.div`
 width: 315px;
+text-align: center;
 `;
 
 const StyledH2 = styled.h2<{selected: boolean}>`
@@ -76,12 +77,12 @@ const StyledH2 = styled.h2<{selected: boolean}>`
   padding: 0;
 `;
 
-export const TaskList = ({ title, state } : TaskListProps) => {
+export const Tasklist = ({ title, state } : TasklistProps) => {
   const [selectedTaskType, setSelectedTaskType] = Recoil.useRecoilState(SelectedTaskType);
   const onHeaderSelected = () => setSelectedTaskType(title);
 
-  return <StyledTaskList>
+  return <StyledTasklist>
     <StyledH2 selected={title === selectedTaskType} onClick={onHeaderSelected}>{title}</StyledH2>
-    <BaseTaskList state={state}/>
-  </StyledTaskList>;
+    <BaseTasklist state={state}/>
+  </StyledTasklist>;
 };

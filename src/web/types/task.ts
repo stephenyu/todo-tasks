@@ -5,8 +5,9 @@ export enum TaskType {
 }
 
 export interface Task {
+  id: number;
   description: string;
-  date: number;
+  last_updated: number;
   type: TaskType;
   done: boolean;
 }

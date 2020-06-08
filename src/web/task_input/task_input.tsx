@@ -3,7 +3,7 @@ import * as Recoil from 'recoil';
 import styled from 'styled-components';
 
 import { TaskType, Task } from 'web/types/task';
-import { TodayTaskList, TomorrowTaskList, SometimeTaskList } from 'web/atoms/TaskList.atom';
+import { TodayTasklist, TomorrowTasklist, SometimeTasklist } from 'web/atoms/Tasklist.atom';
 import { SelectedTaskType } from 'web/atoms/Selected_TaskType.atom';
 
 const StyledInput = styled.input`
@@ -22,7 +22,8 @@ function createTask(task: Partial<Task>): Task {
   return {
     ...initialisedTask,
     done: false,
-    date: new Date().getTime(),
+    id: new Date().getTime(),
+    last_updated: new Date().getTime(),
     ...task,
   };
 }
@@ -32,9 +33,9 @@ export const TaskInput = () => {
   const selectedTaskType = Recoil.useRecoilValue(SelectedTaskType);
 
   const taskLists = {
-    [TaskType.today]: Recoil.useSetRecoilState(TodayTaskList),
-    [TaskType.tomorrow]: Recoil.useSetRecoilState(TomorrowTaskList),
-    [TaskType.sometime]: Recoil.useSetRecoilState(SometimeTaskList),
+    [TaskType.today]: Recoil.useSetRecoilState(TodayTasklist),
+    [TaskType.tomorrow]: Recoil.useSetRecoilState(TomorrowTasklist),
+    [TaskType.sometime]: Recoil.useSetRecoilState(SometimeTasklist),
   };
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setTask({ ...task, description: event.target.value });
@@ -42,7 +43,7 @@ export const TaskInput = () => {
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.keyCode === 13) {
       const constructedTask = createTask({ ...task, type: selectedTaskType });
-      taskLists[constructedTask.type](prevTasks => ({ ...prevTasks, [constructedTask.date] : constructedTask }));
+      taskLists[constructedTask.type](prevTasks => ({ ...prevTasks, [constructedTask.id] : constructedTask }));
       setTask(initialisedTask);
     }
   };

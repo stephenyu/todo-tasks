@@ -5,8 +5,8 @@ import styled, { createGlobalStyle }from 'styled-components';
 
 import { TaskType } from 'web/types/task';
 import { TaskInput } from 'web/task_input/task_input';
-import { TaskList } from 'web/task_list/task_list';
-import { TodayTaskList, TomorrowTaskList, SometimeTaskList } from 'web/atoms/TaskList.atom';
+import { Tasklist } from 'web/task_list/task_list';
+import { TodayTasklist, TomorrowTasklist, SometimeTasklist } from 'web/atoms/Tasklist.atom';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -25,7 +25,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const TaskListDiv = styled.div`
+const TasklistDiv = styled.div`
   display: flex;
   width: 960px;
   justify-content: space-around;
@@ -39,11 +39,11 @@ const Application = () => <Container>
   <TaskInputDiv>
     <TaskInput />
   </TaskInputDiv>
-  <TaskListDiv>
-    <TaskList title={TaskType.today} state={TodayTaskList} />
-    <TaskList title={TaskType.tomorrow} state={TomorrowTaskList} />
-    <TaskList title={TaskType.sometime} state={SometimeTaskList} />
-  </TaskListDiv>
+  <TasklistDiv>
+    <Tasklist title={TaskType.today} state={TodayTasklist} />
+    <Tasklist title={TaskType.tomorrow} state={TomorrowTasklist} />
+    <Tasklist title={TaskType.sometime} state={SometimeTasklist} />
+  </TasklistDiv>
 </Container>;
 
 const ApplicationDiv = styled.div`
