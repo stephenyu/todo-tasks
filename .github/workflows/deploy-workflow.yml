@@ -14,12 +14,11 @@ jobs:
           node-version: '12.x'
       - name: Install dependencies
         run: yarn --frozen-lockfile
-      - name: Install dependencies
+      - name: Webpack Build Production
         run: yarn prod
       - name: Netlify Deploy
         uses: jsmrcaga/action-netlify-deploy@v1.0.1
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_API }}
           NETLIFY_SITE_ID: '14848df1-1333-44c4-8eca-e8f7203721e2'
-          NETLIFY_DEPLOY_TO_PROD: true
           build_directory: 'dist'

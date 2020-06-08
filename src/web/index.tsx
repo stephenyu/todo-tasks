@@ -54,7 +54,9 @@ justify-content: center;
 const App = () => <Recoil.RecoilRoot>
   <GlobalStyle/>
   <ApplicationDiv>
-    <Application />
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <Application />
+    </React.Suspense>
   </ApplicationDiv>
 </Recoil.RecoilRoot>;
 

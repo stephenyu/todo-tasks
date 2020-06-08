@@ -2,14 +2,16 @@ import * as React from 'react';
 import * as Recoil from 'recoil';
 import styled from 'styled-components';
 
-import { SelectedTaskType } from 'web/atoms/Selected_TaskType.atom';
+import { currentType } from 'web/atoms/current_task.atom';
 import { SelectedTask } from 'web/atoms/selected_task.atom';
-import { Tasklist as TasklistType, TodayTasklist } from 'web/atoms/Tasklist.atom';
+
+import { useTasklist } from 'web/hooks/useTasklist';
+import { Tasklist as TasklistType } from 'web/atoms/Tasklist.atom';
 import { TaskType, Task } from 'web/types/task';
 
 interface TasklistProps {
   title: TaskType;
-  state: Recoil.RecoilState<TasklistType>;
+  state: Recoil.RecoilValueReadOnly<TasklistType>;
 }
 
 const StyledLi = styled.li<{completed: boolean}>`
@@ -49,10 +51,10 @@ const TasklistItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: (
 };
 
 const BaseTasklist = ({ state }:  {state: Recoil.RecoilState<TasklistType>}) => {
-  const [list, setlist] = Recoil.useRecoilState(state);
+  const list = Recoil.useRecoilValue(state);
+  const { updateTask } = useTasklist();
 
-  const onClick = (task: Task) =>
-    () => setlist(prevlist => ({ ...prevlist, [task.id]: { ...task, done: !task.done } }));
+  const onClick = (task: Task) => () => updateTask({ ...task, done: !task.done });
 
   const options = Object.values(list).map((task, index) =>
     <TasklistItem key={index} task={task} onTaskItemClick={onClick(task)}/>);
@@ -78,7 +80,7 @@ const StyledH2 = styled.h2<{selected: boolean}>`
 `;
 
 export const Tasklist = ({ title, state } : TasklistProps) => {
-  const [selectedTaskType, setSelectedTaskType] = Recoil.useRecoilState(SelectedTaskType);
+  const [selectedTaskType, setSelectedTaskType] = Recoil.useRecoilState(currentType);
   const onHeaderSelected = () => setSelectedTaskType(title);
 
   return <StyledTasklist>
