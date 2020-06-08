@@ -16,34 +16,40 @@ function inverseFilterTasklist(list: Tasklist, type: TaskType) {
     .reduce((list, task) => ({ ...list, [task.id]: task }), {});
 }
 
-const TaskListAtom = Recoil.atom<Tasklist>({
-  key: 'tasklist',
+const TasklistAtom = Recoil.atom<Tasklist>({
+  key: 'tasklistatom',
   default: {}
+});
+
+const Tasklist = Recoil.selector<Tasklist>({
+  key: 'tasklist',
+  get: ({ get }) => get(TasklistAtom),
+  set: ({ set }, newValue) => set(TasklistAtom, newValue)
 });
 
 export const TodayTasklist = Recoil.selector<Tasklist>({
   key: 'today-tasklist',
-  get: ({ get }) => filterTasklist(get(TaskListAtom), TaskType.today),
+  get: ({ get }) => filterTasklist(get(Tasklist), TaskType.today),
   set: ({ get, set }, newValue) => {
-    const everythingBarType = inverseFilterTasklist(get(TaskListAtom), TaskType.today);
-    set(TaskListAtom, { ...everythingBarType, ...newValue });
+    const everythingBarType = inverseFilterTasklist(get(Tasklist), TaskType.today);
+    set(Tasklist, { ...everythingBarType, ...newValue });
   }
 });
 
 export const TomorrowTasklist = Recoil.selector<Tasklist>({
   key: 'tomorrow-tasklist',
-  get: ({ get }) => filterTasklist(get(TaskListAtom), TaskType.tomorrow),
+  get: ({ get }) => filterTasklist(get(Tasklist), TaskType.tomorrow),
   set: ({ get, set }, newValue) => {
-    const everythingBarType = inverseFilterTasklist(get(TaskListAtom), TaskType.tomorrow);
-    set(TaskListAtom, { ...everythingBarType, ...newValue });
+    const everythingBarType = inverseFilterTasklist(get(Tasklist), TaskType.tomorrow);
+    set(Tasklist, { ...everythingBarType, ...newValue });
   }
 });
 
 export const SometimeTasklist = Recoil.selector<Tasklist>({
   key: 'sometime-tasklist',
-  get: ({ get }) => filterTasklist(get(TaskListAtom), TaskType.sometime),
+  get: ({ get }) => filterTasklist(get(Tasklist), TaskType.sometime),
   set: ({ get, set }, newValue) => {
-    const everythingBarType = inverseFilterTasklist(get(TaskListAtom), TaskType.sometime);
-    set(TaskListAtom, { ...everythingBarType, ...newValue });
+    const everythingBarType = inverseFilterTasklist(get(Tasklist), TaskType.sometime);
+    set(Tasklist, { ...everythingBarType, ...newValue });
   }
 });
