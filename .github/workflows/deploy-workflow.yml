@@ -16,7 +16,8 @@ jobs:
         run: yarn --frozen-lockfile
       - name: Install dependencies
         run: yarn prod
-      - uses: jsmrcaga/action-netlify-deploy@v1
+      - name: Netlify Deploy
+        uses: jsmrcaga/action-netlify-deploy@v1.0.1
         with:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_API }}
           NETLIFY_SITE_ID: '14848df1-1333-44c4-8eca-e8f7203721e2'
