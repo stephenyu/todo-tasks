@@ -13,4 +13,8 @@ jobs:
         with:
           node-version: '12.x'
       - name: Install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
+      - name: Install dependencies
+        run: yarn prod
+      - name: Display structure of downloaded files
+        run: ls -R
