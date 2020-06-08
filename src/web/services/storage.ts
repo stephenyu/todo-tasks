@@ -1,6 +1,9 @@
+import { Task } from 'web/types/task';
 import { Tasklist } from 'web/atoms/Tasklist.atom';
 
 export interface Storage {
-  store(tasklist: Tasklist): void;
-  get(): Tasklist;
+  add(task: Task): Promise<number>;
+  update(task: Task): void;
+  delete(id: number): void;
+  getAll(): Promise<Tasklist>;
 }
