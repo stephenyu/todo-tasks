@@ -22,3 +22,4 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_DEPLOY_API }}
           NETLIFY_SITE_ID: '14848df1-1333-44c4-8eca-e8f7203721e2'
           build_directory: 'dist'
+          NETLIFY_DEPLOY_TO_PROD: true
