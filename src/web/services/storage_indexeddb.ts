@@ -23,7 +23,7 @@ class StorageIndexedDB implements Storage {
   }
 
   public async update(task: Task) {
-    this.database.tasks.update(task.id, (({ description, last_updated, type, done }: RawTask) => ({ description, last_updated, type, done }))(task));
+    this.database.tasks.update(task.id, (({ description, type, done }: RawTask) => ({ description, type, done, last_updated: new Date().getTime() }))(task));
   }
 
   public async delete(id: number) {
@@ -33,7 +33,18 @@ class StorageIndexedDB implements Storage {
   public async getAll() {
     const collection = this.database.tasks.where("id").above(0);
     const list: Tasklist = {};
-    await collection.each((task, { primaryKey }) => list[primaryKey] = { ...task, id: primaryKey });
+    await collection.each((task, { primaryKey }) => {
+      if (task.done) {
+        const result = new Date(task.last_updated);
+        result.setDate(result.getDate() + 5);
+
+        if (result.getTime() >= new Date().getTime()) {
+          list[primaryKey] = { ...task, id: primaryKey };
+        }
+      } else {
+        list[primaryKey] = { ...task, id: primaryKey };
+      }
+    });
     return list;
   }
 }
