@@ -41,6 +41,16 @@ const StyledUl = styled.ul`
    padding: 0;
 `;
 
+function sortTasks(taskA: Task, taskB: Task) {
+  if (taskA.done === false && taskB.done === true) {
+    return -1;
+  } else if (taskA.done === true && taskB.done === false) {
+    return 1;
+  }
+
+  return taskA.description.localeCompare(taskB.description);
+}
+
 const TasklistItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: () => void}) => {
   const setTask = Recoil.useSetRecoilState(SelectedTask);
 
@@ -56,8 +66,9 @@ const BaseTasklist = ({ state }:  {state: Recoil.RecoilState<TasklistType>}) => 
 
   const onClick = (task: Task) => () => updateTask({ ...task, done: !task.done });
 
-  const options = Object.values(list).map((task, index) =>
-    <TasklistItem key={index} task={task} onTaskItemClick={onClick(task)}/>);
+  const options = Object.values(list)
+    .sort(sortTasks)
+    .map((task, index) => <TasklistItem key={index} task={task} onTaskItemClick={onClick(task)}/>);
 
   return <StyledUl>{options}</StyledUl>;
 };
