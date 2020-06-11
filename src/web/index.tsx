@@ -6,6 +6,8 @@ import styled, { createGlobalStyle }from 'styled-components';
 import { TaskType } from 'web/types/task';
 import { TaskInput } from 'web/task_input/task_input';
 import { Tasklist } from 'web/task_list/task_list';
+import { SelectedTask } from 'web/atoms/selected_task.atom';
+import { useTasklist } from 'web/hooks/useTasklist';
 import { TodayTasklist, TomorrowTasklist, SometimeTasklist } from 'web/atoms/Tasklist.atom';
 
 const GlobalStyle = createGlobalStyle`
@@ -35,16 +37,44 @@ const TaskInputDiv = styled.div`
   margin-bottom: 8px;
 `;
 
-const Application = () => <Container>
-  <TaskInputDiv>
-    <TaskInput />
-  </TaskInputDiv>
-  <TasklistDiv>
-    <Tasklist title={TaskType.today} state={TodayTasklist} />
-    <Tasklist title={TaskType.tomorrow} state={TomorrowTasklist} />
-    <Tasklist title={TaskType.sometime} state={SometimeTasklist} />
-  </TasklistDiv>
-</Container>;
+const Application = () => {
+  const selectedTask = Recoil.useRecoilValue(SelectedTask);
+  const { updateTask } = useTasklist();
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (selectedTask !== undefined) {
+        switch (event.key) {
+          case "1":
+            updateTask({ ...selectedTask, type: TaskType.today });
+            break;
+          case "2":
+            updateTask({ ...selectedTask, type: TaskType.tomorrow });
+            break;
+          case "3":
+            updateTask({ ...selectedTask, type: TaskType.sometime });
+            break;
+          default:
+            break;
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedTask]);
+
+  return (<Container>
+    <TaskInputDiv>
+      <TaskInput />
+    </TaskInputDiv>
+    <TasklistDiv>
+      <Tasklist title={TaskType.today} state={TodayTasklist} />
+      <Tasklist title={TaskType.tomorrow} state={TomorrowTasklist} />
+      <Tasklist title={TaskType.sometime} state={SometimeTasklist} />
+    </TasklistDiv>
+  </Container>);
+};
 
 const ApplicationDiv = styled.div`
 display: flex;
