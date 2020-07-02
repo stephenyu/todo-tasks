@@ -76,7 +76,7 @@ export const ScratchPad = () => {
     }
 
     retrieveDocument();
-  });
+  }, []);
 
   const displayEditor = () => setShowEditor(true);
 

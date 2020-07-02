@@ -4,5 +4,11 @@ const localStorage = window.localStorage;
 
 export const DocumentStorage: StorageDocument = {
   save: (document) => Promise.resolve(localStorage.setItem('scratchPad', document)),
-  retrieve: () => Promise.resolve(localStorage.getItem('scratchPad'))
+  retrieve: () => {
+    let result = localStorage.getItem('scratchPad');
+    if (result === null)
+      result = '';
+
+    return Promise.resolve(result);
+  }
 };

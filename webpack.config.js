@@ -2,7 +2,7 @@ const path = require('path');
 const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const stableLibraries = ['react', 'react-dom', 'recoi', 'styled-components'];
+const stableLibraries = ['react', 'react-dom', 'recoi', 'styled-components', 'marked', 'dompurify'];
 
 module.exports = {
   entry: './src/web/index.tsx',
