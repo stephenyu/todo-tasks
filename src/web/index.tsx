@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 960px;
+  width: 1300px;
   align-items: center;
 `;
 

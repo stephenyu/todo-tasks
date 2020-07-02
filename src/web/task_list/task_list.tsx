@@ -14,19 +14,21 @@ interface TasklistProps {
   state: Recoil.RecoilValueReadOnly<TasklistType>;
 }
 
-const StyledLi = styled.li<{completed: boolean}>`
-   font-family: 'Open Sans', sans-serif;
-   font-weight: 300;
-
+const StyledLi = styled.li`
    list-style: none;
    margin: 0;
    padding: 0;
+   margin-bottom: 8px;
+`;
+
+const StyledSpan = styled.span<{completed: boolean}>`
+   font-family: 'Open Sans', sans-serif;
+   font-weight: 300;
    cursor: pointer;
    text-decoration: ${(props) => props.completed ? 'line-through' : 'none'};
    color: ${(props) => props.completed ? '#C7C7C7' : 'black'};
    -webkit-user-select: none;
    user-select: none;
-   margin-bottom: 8px;
 
    &:hover {
        text-decoration: ${(props) => {
@@ -57,10 +59,12 @@ const TasklistItem = ({ task, onTaskItemClick }: {task: Task, onTaskItemClick: (
   const onMouseOver = () => setTask(task);
   const onMouseOut = () => setTask(undefined);
 
-  return <StyledLi completed={task.done} onClick={onTaskItemClick} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{task.description}</StyledLi>;
+  return <StyledLi>
+    <StyledSpan completed={task.done} onClick={onTaskItemClick} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>{task.description}</StyledSpan>
+  </StyledLi>;
 };
 
-const BaseTasklist = ({ state }:  {state: Recoil.RecoilState<TasklistType>}) => {
+const BaseTasklist = ({ state }:  {state: Recoil.RecoilValueReadOnly<TasklistType>}) => {
   const list = Recoil.useRecoilValue(state);
   const { updateTask } = useTasklist();
 
@@ -74,7 +78,7 @@ const BaseTasklist = ({ state }:  {state: Recoil.RecoilState<TasklistType>}) => 
 };
 
 const StyledTasklist = styled.div`
-width: 315px;
+flex: 1;
 text-align: center;
 `;
 
