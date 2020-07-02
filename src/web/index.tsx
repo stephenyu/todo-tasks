@@ -16,10 +16,14 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-size: 16px;
   }
-
   body {
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
   }
+  h1,h2,h3,h4 { margin: 0; padding: 0}
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4 { font-size: 1.2rem; }
 `;
 
 const Container = styled.div`
@@ -33,6 +37,8 @@ const TasklistDiv = styled.div`
   display: flex;
   width: 960px;
   justify-content: space-around;
+
+  margin-top: 16px;
 `;
 
 const TaskInputDiv = styled.div`
