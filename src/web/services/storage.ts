@@ -9,3 +9,8 @@ export interface Storage {
   delete(id: number): Promise<void>;
   getAll(): Promise<Tasklist>;
 }
+
+export interface StorageDocument {
+  save(document: string): Promise<void>;
+  retrieve(): Promise<string>;
+}

@@ -374,6 +374,13 @@
   dependencies:
     dexie "*"
 
+"@types/dompurify@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-2.0.2.tgz#94b5c05dc9b8a682a0abb4a8d6f0b82df61baeac"
+  integrity sha512-WHoQQTziRHm5/Fw/KsUKyh2V+wd3k2QUpJyjUXo8K7d9kMJ5i5wQnGDkO4URkwulhY2HuM/gbX25nSooi6+wUA==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
@@ -422,6 +429,11 @@
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.4.tgz#38fd73ddfd9b55abb1e1b2ed578cb55bd7b7d339"
   integrity sha512-8+KAKzEvSUdeo+kmqnKrqgeE+LcA0tjYWFY7RPProVYwnqDjukzO+3b6dLD56rYX5TdWejnEOLJYOIeh4CXKuA==
+
+"@types/marked@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@types/marked/-/marked-1.1.0.tgz#53509b5f127e0c05c19176fcf1d743a41e00ff19"
+  integrity sha512-j8XXj6/l9kFvCwMyVqozznqpd/nk80krrW+QiIJN60Uu9gX5Pvn4/qPJ2YngQrR3QREPwmrE1f9/EWKVTFzoEw==
 
 "@types/minimatch@*":
   version "3.0.3"
@@ -491,6 +503,11 @@
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.5.tgz#9adbc12950582aa65ead76bffdf39fe0c27a3c02"
   integrity sha512-/gG2M/Imw7cQFp8PGvz/SwocNrmKFjFsm5Pb8HdbHkZ1K8pmuPzOX4VeVoiEecFCVf4CsN1r3/BRvx+6sNqwtQ==
+
+"@types/trusted-types@*":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-1.0.4.tgz#922d092c84a776a59acb0bd6785fd82b59b9bad5"
+  integrity sha512-6jtHrHpmiXOXoJ31Cg9R+iEVwuEKPf0XHwFUI93eEPXx492/J2JHyafkleKE2EYzZprayk9FSjTyK1GDqcwDng==
 
 "@types/uglify-js@*":
   version "3.9.2"
