@@ -10,6 +10,8 @@ import { SelectedTask } from 'web/atoms/selected_task.atom';
 import { useTasklist } from 'web/hooks/useTasklist';
 import { TodayTasklist, TomorrowTasklist, SometimeTasklist } from 'web/atoms/Tasklist.atom';
 
+import { ScratchPad } from 'web/scratch_pad/scratch_pad';
+
 const GlobalStyle = createGlobalStyle`
   * {
     font-size: 16px;
@@ -73,6 +75,7 @@ const Application = () => {
       <Tasklist title={TaskType.tomorrow} state={TomorrowTasklist} />
       <Tasklist title={TaskType.sometime} state={SometimeTasklist} />
     </TasklistDiv>
+    <ScratchPad />
   </Container>);
 };
 
