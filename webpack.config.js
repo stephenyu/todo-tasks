@@ -1,6 +1,8 @@
 const path = require('path');
 const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const stableLibraries = ['react', 'scheduler', 'react-dom', 'recoil', 'styled-components'];
 const generalLibraries = ['marked', 'dompurify'];
@@ -27,10 +29,16 @@ module.exports = {
     ],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './src/html/index.html',
       inject: true,
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: './src/assets/', to: './assets/' },
+      ],
+    }),
   ],
   resolve: {
     extensions: [ '.tsx', '.ts', '.js' ],
