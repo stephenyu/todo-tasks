@@ -16,6 +16,7 @@ const StyledDiv = styled.div`
   height: 100%;
   width: 100%;
 
+  box-sizing: border-box;
   border: 1px solid #E4E4E4;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
@@ -28,6 +29,7 @@ const StyledTextarea = styled.textarea`
   height: 100%;
   width: 100%;
 
+  box-sizing: border-box;
   border: 1px solid #E4E4E4;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;

@@ -20,25 +20,34 @@ const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;600&display=swap');
   }
   h1,h2,h3,h4 { margin: 0; padding: 0}
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.6rem; }
-  h3 { font-size: 1.4rem; }
-  h4 { font-size: 1.2rem; }
+
+  @media (min-width: 970px) {
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.6rem; }
+      h3 { font-size: 1.4rem; }
+      h4 { font-size: 1.2rem; }
+  }
 `;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1300px;
-  align-items: center;
+  width: 100%;
+  padding: 8px;
+
+  @media (min-width: 970px) {
+      display: flex;
+      flex-direction: column;
+      width: 1300px;
+      align-items: center;
+  }
 `;
 
 const TasklistDiv = styled.div`
-  display: flex;
-  width: 960px;
-  justify-content: space-around;
-
-  margin-top: 16px;
+  @media (min-width: 970px) {
+      display: flex;
+      width: 960px;
+      justify-content: space-around;
+      margin-top: 16px;
+  }
 `;
 
 const TaskInputDiv = styled.div`

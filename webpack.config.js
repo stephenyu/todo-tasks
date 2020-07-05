@@ -2,7 +2,8 @@ const path = require('path');
 const ClosurePlugin = require('closure-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const stableLibraries = ['react', 'react-dom', 'recoi', 'styled-components', 'marked', 'dompurify'];
+const stableLibraries = ['react', 'scheduler', 'react-dom', 'recoil', 'styled-components'];
+const generalLibraries = ['marked', 'dompurify'];
 
 module.exports = {
   entry: './src/web/index.tsx',
@@ -50,6 +51,14 @@ module.exports = {
             return module.resource &&
                   module.resource.includes('node_modules') &&
                   stableLibraries.some(name => module.resource.includes(`/${name}/`));
+          }
+        },
+        libs: {
+          name: 'libaries',
+          test(module) {
+            return module.resource &&
+                  module.resource.includes('node_modules') &&
+                  generalLibraries.some(name => module.resource.includes(`/${name}/`));
           }
         },
       }

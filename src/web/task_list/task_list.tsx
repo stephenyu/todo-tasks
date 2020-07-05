@@ -86,12 +86,15 @@ const StyledH2 = styled.h2<{selected: boolean}>`
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
 
-  font-size: 2em;
+  font-size: 1.3em;
 
   color: ${props => (props.selected) ? '#8F0000' : '#191919'};
 
-  margin: 0 0 8px 0;
-  padding: 0;
+  @media (min-width: 970px) {
+     font-size: 2em;
+     margin: 0 0 8px 0;
+     padding: 0;
+  }
 `;
 
 export const Tasklist = ({ title, state } : TasklistProps) => {
