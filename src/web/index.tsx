@@ -42,9 +42,10 @@ const Container = styled.div`
 `;
 
 const TasklistDiv = styled.div`
+  width: 100%;
+
   @media (min-width: 970px) {
       display: flex;
-      width: 960px;
       justify-content: space-around;
       margin-top: 16px;
   }
