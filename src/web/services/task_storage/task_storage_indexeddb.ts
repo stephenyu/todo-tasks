@@ -1,7 +1,7 @@
 import Dexie from 'dexie';
 import { Tasklist } from 'web/atoms/Tasklist.atom';
 import { Task } from 'web/types/task';
-import { Storage, RawTask } from './storage';
+import { TaskStorage, RawTask } from './task_storage';
 
 class TaskDatabase extends Dexie {
   public tasks: Dexie.Table<RawTask, number>; // id is number in this case
@@ -15,7 +15,7 @@ class TaskDatabase extends Dexie {
   }
 }
 
-class StorageIndexedDB implements Storage {
+class TaskStorageIndexedDB implements TaskStorage {
   private database = new TaskDatabase();
 
   public async add(task: RawTask) {
@@ -49,17 +49,17 @@ class StorageIndexedDB implements Storage {
   }
 }
 
-let localStorage: StorageIndexedDB;
+let localStorage: TaskStorageIndexedDB;
 
 function getIndexdDBStorage() {
   if (localStorage == undefined) {
-    localStorage = new StorageIndexedDB();
+    localStorage = new TaskStorageIndexedDB();
   }
 
   return localStorage;
 }
 
-export const storage_indexeddb: Storage = {
+export const task_storage_indexeddb: TaskStorage = {
   add: (task) => getIndexdDBStorage().add(task),
   update: (task) => getIndexdDBStorage().update(task),
   delete: (id) => getIndexdDBStorage().delete(id),

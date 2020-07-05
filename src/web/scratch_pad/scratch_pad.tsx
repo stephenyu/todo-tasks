@@ -3,7 +3,7 @@ import * as DOMPurify from 'dompurify';
 import * as marked from 'marked';
 import styled from 'styled-components';
 
-import { DocumentStorage } from 'web/services/storage_document';
+import { DocumentStorageLocalStorage } from 'web/services/document_storage/document_storage_localstorage';
 
 const ScratchPadContainer = styled.div`
   margin-top: 16px;
@@ -11,8 +11,7 @@ const ScratchPadContainer = styled.div`
   width:  100%;
 `;
 
-const StyledDiv = styled.div`
-  font-family: 'Open Sans', sans-serif;
+const sharedStyles = `
   height: 100%;
   width: 100%;
 
@@ -25,17 +24,13 @@ const StyledDiv = styled.div`
   padding: 8px;
 `;
 
+const StyledDiv = styled.div`
+  font-family: 'Open Sans', sans-serif;
+  ${sharedStyles}
+`;
+
 const StyledTextarea = styled.textarea`
-  height: 100%;
-  width: 100%;
-
-  box-sizing: border-box;
-  border: 1px solid #E4E4E4;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-
-  padding: 8px;
+  ${sharedStyles}
 `;
 
 const Preview = ({ rawContent, onClick }: {rawContent: string, onClick: () => void}) => {
@@ -73,7 +68,7 @@ export const ScratchPad = () => {
 
   React.useEffect(() => {
     async function retrieveDocument() {
-      const document = await DocumentStorage.retrieve();
+      const document = await DocumentStorageLocalStorage.retrieve();
       setRawContent(document);
     }
 
@@ -83,7 +78,7 @@ export const ScratchPad = () => {
   const displayEditor = () => setShowEditor(true);
 
   const displayPreview = (content: string) => {
-    DocumentStorage.save(content);
+    DocumentStorageLocalStorage.save(content);
     setRawContent(content);
     setShowEditor(false);
   };

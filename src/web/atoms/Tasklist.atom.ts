@@ -1,6 +1,6 @@
 import * as Recoil from 'recoil';
 
-import { storage_indexeddb } from 'web/services/storage_indexeddb';
+import { task_storage_indexeddb } from 'web/services/task_storage/task_storage_indexeddb';
 import { TaskType, Task } from 'web/types/task';
 
 export type Tasklist = Record<number, Task>;
@@ -12,7 +12,7 @@ function filterTasklist(list: Tasklist, type: TaskType) {
 
 export const TasklistAtom = Recoil.atom<Tasklist>({
   key: 'tasklistatom',
-  default: storage_indexeddb.getAll()
+  default: task_storage_indexeddb.getAll()
 });
 
 export const TodayTasklist = Recoil.selector<Tasklist>({

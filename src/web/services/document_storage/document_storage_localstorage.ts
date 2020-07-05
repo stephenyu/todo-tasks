@@ -1,8 +1,8 @@
-import { StorageDocument } from "./storage";
+import { DocumentStorage } from "./document_storage";
 
 const localStorage = window.localStorage;
 
-export const DocumentStorage: StorageDocument = {
+export const DocumentStorageLocalStorage: DocumentStorage = {
   save: (document) => Promise.resolve(localStorage.setItem('scratchPad', document)),
   retrieve: () => {
     let result = localStorage.getItem('scratchPad');
