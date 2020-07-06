@@ -24,6 +24,10 @@ const sharedStyles = `
   padding: 8px;
 `;
 
+const StyledButton = styled.button`
+  margin-top: 16px;
+`;
+
 const StyledDiv = styled.div`
   font-family: 'Open Sans', sans-serif;
   ${sharedStyles}
@@ -43,7 +47,7 @@ const Preview = ({ rawContent, onClick }: {rawContent: string, onClick: () => vo
 
   return <React.Fragment>
     <StyledDiv dangerouslySetInnerHTML={{ __html: content }}/>
-    <button onClick={onClick}>Edit</button>
+    <StyledButton onClick={onClick}>Edit</StyledButton>
   </React.Fragment>;
 };
 
@@ -58,7 +62,7 @@ const Editor = ({ rawContent, onClick }: {rawContent: string, onClick: (content:
 
   return <React.Fragment>
     <StyledTextarea value={content} onChange={onChange} ref={textareaRef}/>
-    <button onClick={onSave}>Save</button>
+    <StyledButton onClick={onSave}>Save</StyledButton>
   </React.Fragment>;
 };
 

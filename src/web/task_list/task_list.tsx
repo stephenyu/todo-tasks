@@ -90,10 +90,14 @@ const StyledH2 = styled.h2<{selected: boolean}>`
 
   color: ${props => (props.selected) ? '#8F0000' : '#191919'};
 
+  &:hover {
+    cursor: pointer;
+  }
+
   @media (min-width: 970px) {
-     font-size: 2em;
-     margin: 0 0 8px 0;
-     padding: 0;
+    font-size: 2em;
+    margin: 0 0 8px 0;
+    padding: 0;
   }
 `;
 
