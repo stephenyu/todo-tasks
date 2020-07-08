@@ -12,7 +12,6 @@ const ScratchPadContainer = styled.div`
 `;
 
 const sharedStyles = `
-  height: 100%;
   width: 100%;
 
   box-sizing: border-box;
