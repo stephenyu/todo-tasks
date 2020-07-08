@@ -32,8 +32,11 @@ const StyledDiv = styled.div`
   ${sharedStyles}
 `;
 
-const StyledTextarea = styled.textarea`
+const StyledTextarea = styled.textarea<{height: number}>`
   ${sharedStyles}
+  height: ${props => props.height}px;
+  overflow: hidden;
+  resize: none;
 `;
 
 const Preview = ({ rawContent, onClick }: {rawContent: string, onClick: () => void}) => {
@@ -52,15 +55,23 @@ const Preview = ({ rawContent, onClick }: {rawContent: string, onClick: () => vo
 
 const Editor = ({ rawContent, onClick }: {rawContent: string, onClick: (content: string) => void}) => {
   const [content, setContent] = React.useState(rawContent);
+  const [height, setHeight] = React.useState(0);
   const textareaRef = React.createRef<HTMLTextAreaElement>();
 
-  React.useEffect(() => textareaRef.current.focus());
+  React.useEffect(() => {
+    setHeight(textareaRef.current.scrollHeight);
+    textareaRef.current.focus();
+  }, [setHeight]);
 
   const onSave = () => onClick(content);
-  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setContent(event.target.value);
+  const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const target = event.target;
+    setHeight(target.scrollHeight);
+    setContent(target.value);
+  };
 
   return <React.Fragment>
-    <StyledTextarea value={content} onChange={onChange} ref={textareaRef}/>
+    <StyledTextarea height={height} value={content} onChange={onChange} ref={textareaRef}/>
     <StyledButton onClick={onSave}>Save</StyledButton>
   </React.Fragment>;
 };
