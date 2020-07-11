@@ -36,7 +36,7 @@ class TaskStorageIndexedDB implements TaskStorage {
     await collection.each((task, { primaryKey }) => {
       if (task.done) {
         const result = new Date(task.last_updated);
-        result.setDate(result.getDate() + 5);
+        result.setDate(result.getDate() + 3);
 
         if (result.getTime() >= new Date().getTime()) {
           list[primaryKey] = { ...task, id: primaryKey };
