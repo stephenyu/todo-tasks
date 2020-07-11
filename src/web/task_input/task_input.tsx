@@ -79,7 +79,12 @@ export const TaskInput = () => {
   const { addTask } = useTasklist();
   const [autoComplete, setAutoComplete] = React.useState('');
 
-  const descriptions: string[] = React.useMemo(() => Object.keys(wholeTaskList).map(taskKey => wholeTaskList[~~taskKey].description), [wholeTaskList]);
+  const descriptions: string[] = React.useMemo(() => Object.keys(wholeTaskList).reduce<string[]>((descriptions, taskKey) => {
+    const task = wholeTaskList[Number.parseInt(taskKey, 10)];
+    return (task.done === false)
+      ? [...descriptions, task.description]
+      : descriptions;
+  }, []), [wholeTaskList]);
 
   React.useEffect(() => {
     if (task.description.length === 0 ) {
