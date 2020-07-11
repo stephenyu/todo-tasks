@@ -107,7 +107,12 @@ export const TaskInput = () => {
         addTask();
         resetTask();
         break;
-      case 39: {// right arrow key
+      case 9: {// tab
+        if (autoComplete.length === 0) {
+          return;
+        }
+
+        event.preventDefault();
         const splitAutocomplete = autoComplete.substring(task.description.length).split(' ');
         const remainingPartOfFirstWord = (splitAutocomplete.length > 1)
           ? `${splitAutocomplete[0]} `
