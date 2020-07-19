@@ -4,6 +4,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+import { ssrHtml } from './src/build_ssr';
+
+console.log(ssrHtml);
+
+const HtmlConfig = {
+  template: './src/html/index.html',
+  inject: true,
+  ...ssrHtml
+};
+
 const stableLibraries = ['react', 'scheduler', 'react-dom', 'recoil', 'styled-components'];
 const generalLibraries = ['marked', 'dompurify'];
 
@@ -30,10 +40,7 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: './src/html/index.html',
-      inject: true,
-    }),
+    new HtmlWebpackPlugin(HtmlConfig),
     new CopyPlugin({
       patterns: [
         { from: './src/assets/', to: './assets/' },
@@ -55,7 +62,7 @@ module.exports = {
       cacheGroups: {
         vendors: {
           name: 'vendors',
-          test(module, chunks) {
+          test(module: any) {
             return module.resource &&
                   module.resource.includes('node_modules') &&
                   stableLibraries.some(name => module.resource.includes(`/${name}/`));
@@ -63,7 +70,7 @@ module.exports = {
         },
         libs: {
           name: 'libaries',
-          test(module) {
+          test(module: any) {
             return module.resource &&
                   module.resource.includes('node_modules') &&
                   generalLibraries.some(name => module.resource.includes(`/${name}/`));

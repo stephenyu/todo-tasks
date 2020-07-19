@@ -14,11 +14,13 @@
     "marked": "^1.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "ts-node": "^8.10.2",
     "url-loader": "^4.1.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server",
-    "prod": "webpack"
+    "dev": "NODE_PATH=\"$(pwd)/src:${NODE_PATH:-}\" yarn webpack-dev-server",
+    "prod": "NODE_PATH=\"$(pwd)/src:${NODE_PATH:-}\" yarn webpack",
+    "build-ssr": "NODE_PATH=\"$(pwd)/src:${NODE_PATH:-}\" yarn ts-node src/build_ssr"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
