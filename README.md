@@ -13,9 +13,3 @@ Available at [https://todo.less3.com](https://todo.less3.com)
 
  * Future Features
    * Encypt data, so it can't be read on browser.
-  
-
-
-
-
-
