@@ -9,7 +9,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
     "dexie": "^3.0.1",
-    "dompurify": "^2.0.12",
+    "dompurify": "^2.0.17",
     "google-closure-compiler": "^20200517.0.0",
     "marked": "^1.1.0",
     "react": "^16.13.1",
