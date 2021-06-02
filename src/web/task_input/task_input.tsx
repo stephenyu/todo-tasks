@@ -102,12 +102,16 @@ export const TaskInput = () => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => setTask({ ...task, description: event.target.value });
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    switch (event.keyCode) {
-      case 13: // return
+    const key = event.key || event.keyCode;
+    
+    switch (key) {
+      case 'Enter':
+      case 13:
         addTask();
         resetTask();
         break;
-      case 9: {// tab
+      case 'Tab':
+      case 9: {
         if (autoComplete.length === 0) {
           return;
         }
